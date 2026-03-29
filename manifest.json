@@ -1,9 +1,10 @@
 {
   "manifest_version": 3,
   "name": "DIAMOND – Prism of Light",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Don't just see the news. See the spectrum. Spaltet Nachrichten in ihre manipulativen Farbkanäle auf.",
   "permissions": ["activeTab", "storage"],
+  "host_permissions": ["<all_urls>"],
   "action": {
     "default_popup": "popup.html",
     "default_icon": {

@@ -10,6 +10,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const modeBtns = document.querySelectorAll('.mode-btn');
   const channelToggles = document.querySelectorAll('.channel-toggle input');
   const scoreDisplay = document.getElementById('scoreDisplay');
+  const urlInput = document.getElementById('urlInput');
+  const analyzeUrlBtn = document.getElementById('analyzeUrlBtn');
+  const urlStatus = document.getElementById('urlStatus');
 
   // Get current state from content script
   function getState() {
@@ -119,6 +122,54 @@ document.addEventListener('DOMContentLoaded', () => {
       scoreDisplay.classList.add('score-critical');
     }
   }
+
+  // ── URL Analysis ─────────────────────────────
+  function analyzeUrl() {
+    const url = urlInput.value.trim();
+    if (!url) return;
+
+    // Basic URL validation
+    try {
+      new URL(url);
+    } catch (e) {
+      urlStatus.textContent = 'Ungültige URL';
+      urlStatus.className = 'url-status error';
+      return;
+    }
+
+    analyzeUrlBtn.disabled = true;
+    urlStatus.textContent = 'Lädt...';
+    urlStatus.className = 'url-status loading';
+
+    chrome.runtime.sendMessage({ action: 'diamond-fetch-url', url }, (response) => {
+      analyzeUrlBtn.disabled = false;
+
+      if (chrome.runtime.lastError || !response) {
+        urlStatus.textContent = 'Verbindungsfehler';
+        urlStatus.className = 'url-status error';
+        return;
+      }
+      if (response.error) {
+        urlStatus.textContent = response.error;
+        urlStatus.className = 'url-status error';
+        return;
+      }
+
+      urlStatus.textContent = `Analysiert (${response.charCount} Zeichen)`;
+      urlStatus.className = 'url-status success';
+
+      // Make sure Diamond is shown as active in popup UI
+      if (!mainToggle.checked) {
+        mainToggle.checked = true;
+        updateUI(true);
+      }
+    });
+  }
+
+  analyzeUrlBtn.addEventListener('click', analyzeUrl);
+  urlInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') analyzeUrl();
+  });
 
   // Listen for analysis updates
   chrome.runtime.onMessage.addListener((msg) => {

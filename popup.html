@@ -253,6 +253,75 @@
       font-style: italic;
     }
 
+    /* URL Analysis Section */
+    .url-section {
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      padding-bottom: 12px;
+    }
+
+    .url-input-wrapper {
+      display: flex;
+      gap: 6px;
+      padding: 4px 18px 6px;
+    }
+
+    .url-input {
+      flex: 1;
+      background: #2c2c2e;
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 8px;
+      padding: 7px 10px;
+      color: #e5e5ea;
+      font-size: 11px;
+      font-family: inherit;
+      outline: none;
+      min-width: 0;
+    }
+
+    .url-input:focus {
+      border-color: rgba(255,149,0,0.5);
+    }
+
+    .url-input::placeholder {
+      color: #636366;
+    }
+
+    .url-analyze-btn {
+      background: rgba(255,149,0,0.15);
+      border: 1px solid #FF9500;
+      border-radius: 8px;
+      color: #FF9500;
+      font-size: 14px;
+      width: 32px;
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.2s;
+      flex-shrink: 0;
+    }
+
+    .url-analyze-btn:hover {
+      background: rgba(255,149,0,0.28);
+    }
+
+    .url-analyze-btn:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    .url-status {
+      padding: 0 18px 2px;
+      font-size: 10px;
+      min-height: 14px;
+      color: #8e8e93;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .url-status.error { color: #FF3B30; }
+    .url-status.success { color: #34C759; }
+    .url-status.loading { color: #FF9500; }
+
     /* Disabled state */
     .disabled {
       opacity: 0.4;
@@ -281,6 +350,16 @@
       <span class="title">DIAMOND</span>
       <span class="subtitle">Prism of Light</span>
     </div>
+  </div>
+
+  <!-- URL Analysis -->
+  <div class="url-section">
+    <div class="section-title">URL analysieren</div>
+    <div class="url-input-wrapper">
+      <input type="url" id="urlInput" class="url-input" placeholder="https://...">
+      <button id="analyzeUrlBtn" class="url-analyze-btn" title="URL analysieren">&#x2192;</button>
+    </div>
+    <div id="urlStatus" class="url-status"></div>
   </div>
 
   <!-- Main Toggle -->
