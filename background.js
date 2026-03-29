@@ -30,37 +30,8 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
 
         const html = await response.text();
 
-        // Parse HTML and extract article text
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(html, 'text/html');
-
-        // Strip noise elements
-        doc.querySelectorAll('nav, header, footer, aside, script, style, noscript, [class*="ad-"], [class*="banner"], [class*="comment"]')
-          .forEach(el => el.remove());
-
-        // Find best content container (ordered by specificity)
-        const SELECTORS = [
-          '[role="article"]', 'article',
-          '.article-body', '.article-text', '.article-content', '.article__body',
-          '.story-body', '.story-content', '.post-body', '.post-content',
-          '.entry-content', '[role="main"]', 'main', 'body'
-        ];
-
-        let text = '';
-        for (const sel of SELECTORS) {
-          const el = doc.querySelector(sel);
-          if (el) {
-            text = (el.textContent || '').replace(/\s+/g, ' ').trim();
-            if (text.length > 200) break;
-          }
-        }
-
-        if (text.length < 100) {
-          sendResponse({ error: 'Kein Inhalt gefunden' });
-          return;
-        }
-
-        // Send extracted text to the active tab's content script
+        // DOMParser is not available in Service Workers — send raw HTML to
+        // the content script, which will parse it there.
         const tabs = await chrome.tabs.query({ active: true, currentWindow: true });
         if (!tabs[0]) {
           sendResponse({ error: 'Kein aktiver Tab' });
@@ -68,12 +39,12 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
         }
 
         await chrome.tabs.sendMessage(tabs[0].id, {
-          action: 'diamond-analyze-external-url',
-          text: text,
+          action: 'diamond-parse-html',
+          html: html,
           url: msg.url
         });
 
-        sendResponse({ success: true, charCount: text.length });
+        sendResponse({ success: true, charCount: html.length });
       } catch (err) {
         sendResponse({ error: err.message || 'Ladefehler' });
       }

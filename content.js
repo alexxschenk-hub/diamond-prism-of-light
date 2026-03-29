@@ -110,6 +110,10 @@
           analyzeExternalUrl(msg.text, msg.url);
           sendResponse({ ok: true });
           break;
+        case 'diamond-parse-html':
+          parseAndAnalyzeHtml(msg.html, msg.url);
+          sendResponse({ ok: true });
+          break;
       }
       return true;
     });
@@ -760,6 +764,41 @@
   // ═══════════════════════════════════════
   // EXTERNAL URL ANALYSIS
   // ═══════════════════════════════════════
+
+  /**
+   * Parse raw HTML from an external URL and hand extracted text off to analyzeExternalUrl.
+   * Called from the background service worker, which cannot use DOMParser itself.
+   */
+  function parseAndAnalyzeHtml(html, sourceUrl) {
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(html, 'text/html');
+
+    doc.querySelectorAll('nav, header, footer, aside, script, style, noscript, [class*="ad-"], [class*="banner"], [class*="comment"]')
+      .forEach(el => el.remove());
+
+    const SELECTORS = [
+      '[role="article"]', 'article',
+      '.article-body', '.article-text', '.article-content', '.article__body',
+      '.story-body', '.story-content', '.post-body', '.post-content',
+      '.entry-content', '[role="main"]', 'main', 'body'
+    ];
+
+    let text = '';
+    for (const sel of SELECTORS) {
+      const el = doc.querySelector(sel);
+      if (el) {
+        text = (el.textContent || '').replace(/\s+/g, ' ').trim();
+        if (text.length > 200) break;
+      }
+    }
+
+    if (text.length < 100) {
+      console.warn('[DIAMOND] Kein Inhalt in externem HTML gefunden:', sourceUrl);
+      return;
+    }
+
+    analyzeExternalUrl(text, sourceUrl);
+  }
 
   /**
    * Analyze text fetched from an external URL (no DOM extraction, no highlighting).
