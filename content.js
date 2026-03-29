@@ -106,10 +106,36 @@
           if (isActive) scheduleReanalysis(100);
           sendResponse({ channels: activeChannels });
           break;
-        case 'diamond-analyze-external-url':
-          analyzeExternalUrl(msg.text, msg.url);
+        case 'diamond-analyze-external-url': {
+          // Parse HTML here (DOMParser available in content scripts, not in Service Workers)
+          let text = msg.text || '';
+          if (!text && msg.html) {
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(msg.html, 'text/html');
+            doc.querySelectorAll('nav, header, footer, aside, script, style, noscript, [class*="ad-"], [class*="banner"], [class*="comment"]')
+              .forEach(el => el.remove());
+            const SELECTORS = [
+              '[role="article"]', 'article',
+              '.article-body', '.article-text', '.article-content', '.article__body',
+              '.story-body', '.story-content', '.post-body', '.post-content',
+              '.entry-content', '[role="main"]', 'main', 'body'
+            ];
+            for (const sel of SELECTORS) {
+              const el = doc.querySelector(sel);
+              if (el) {
+                text = (el.textContent || '').replace(/\s+/g, ' ').trim();
+                if (text.length > 200) break;
+              }
+            }
+          }
+          if (text.length >= 100) {
+            analyzeExternalUrl(text, msg.url);
+          } else {
+            console.warn('[DIAMOND] External URL: Kein Inhalt gefunden');
+          }
           sendResponse({ ok: true });
           break;
+        }
       }
       return true;
     });
