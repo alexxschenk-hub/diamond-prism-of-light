@@ -106,6 +106,10 @@
           if (isActive) scheduleReanalysis(100);
           sendResponse({ channels: activeChannels });
           break;
+        case 'diamond-analyze-external-url':
+          analyzeExternalUrl(msg.text, msg.url);
+          sendResponse({ ok: true });
+          break;
       }
       return true;
     });
@@ -342,6 +346,9 @@
     // Track what URL we're analyzing
     window.__diamondLastAnalyzedUrl = location.href;
     console.log('[DIAMOND] Running analysis on:', location.href.substring(0, 80));
+
+    // Clear URL-mode indicator (we're analyzing the current page now)
+    if (sidebar) sidebar.setUrlIndicator(null);
 
     // Temporarily disconnect observer to avoid feedback loop
     stopObserving();
@@ -748,6 +755,64 @@
     document.body.classList.add('diamond-body-shifted');
 
     console.log(`[DIAMOND] Selection analysis: ${selSummary.totalMatches} matches, score ${selSummary.manipulationScore}`);
+  }
+
+  // ═══════════════════════════════════════
+  // EXTERNAL URL ANALYSIS
+  // ═══════════════════════════════════════
+
+  /**
+   * Analyze text fetched from an external URL (no DOM extraction, no highlighting).
+   * Called when the user enters a URL in the popup.
+   */
+  function analyzeExternalUrl(text, sourceUrl) {
+    console.log('[DIAMOND] External URL analysis:', sourceUrl.substring(0, 80));
+
+    // Activate Diamond if not already active
+    if (!isActive) {
+      isActive = true;
+      chrome.storage.local.set({ diamondActive: true });
+      sidebar.open();
+      startObserving();
+    }
+
+    // Pause observer to avoid feedback loop
+    stopObserving();
+
+    // Clear any existing page highlights (we won't highlight the current page DOM)
+    clearHighlights();
+    restoreOriginalText();
+
+    // Run all analysis engines on the fetched text
+    summary = analyzer.analyzePage(text);
+    const allMatches = analyzer.analyzeText(text);
+
+    const gefrierpunktResult = (modulmanager && !modulmanager.isEnabled('gefrierpunkt'))
+      ? { text: '', category: null, resource: null, mechanism: null, strategy: null }
+      : gefrierpunktEngine.extract(text, allMatches);
+
+    const profiteurResult = (modulmanager && !modulmanager.isEnabled('profiteure'))
+      ? { text: '', profiteers: [] }
+      : profiteurEngine.extract(text);
+
+    const customResults = modulmanager ? modulmanager.runAllCustomModules(text) : {};
+
+    // Update sidebar with results
+    sidebar.updateResults(summary);
+    sidebar.updateEssenz(gefrierpunktResult);
+    sidebar.updateProfiteur(profiteurResult);
+    sidebar.renderCustomResults(customResults);
+    sidebar.setUrlIndicator(sourceUrl);
+
+    // Re-enable observer
+    if (isActive) startObserving();
+
+    // Notify popup of score
+    try {
+      chrome.runtime.sendMessage({ action: 'diamond-analysis-complete', summary });
+    } catch (e) { /* popup may be closed */ }
+
+    console.log(`[DIAMOND] External URL analysis done: ${summary.totalMatches} matches, score ${summary.manipulationScore}`);
   }
 
   // ═══════════════════════════════════════

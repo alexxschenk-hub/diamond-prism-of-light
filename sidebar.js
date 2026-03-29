@@ -316,6 +316,50 @@ class DiamondSidebar {
   }
 
   /**
+   * Show or hide the URL-mode indicator banner in the sidebar header.
+   * Pass null or empty string to hide it.
+   */
+  setUrlIndicator(url) {
+    if (!this.panel) return;
+
+    let banner = this.panel.querySelector('#diamond-url-banner');
+
+    if (!url) {
+      if (banner) banner.remove();
+      return;
+    }
+
+    if (!banner) {
+      banner = document.createElement('div');
+      banner.id = 'diamond-url-banner';
+      banner.style.cssText = `
+        background: rgba(0,122,255,0.12);
+        border: 1px solid rgba(0,122,255,0.35);
+        border-radius: 8px;
+        margin: 0 14px 10px;
+        padding: 6px 10px;
+        font-size: 10px;
+        color: #007AFF;
+        display: flex;
+        align-items: flex-start;
+        gap: 6px;
+        line-height: 1.4;
+        word-break: break-all;
+      `;
+      // Insert after tagline
+      const tagline = this.panel.querySelector('.diamond-tagline');
+      if (tagline && tagline.nextSibling) {
+        tagline.parentNode.insertBefore(banner, tagline.nextSibling);
+      } else {
+        this.panel.querySelector('.diamond-sidebar-inner').prepend(banner);
+      }
+    }
+
+    const shortUrl = url.length > 55 ? url.substring(0, 52) + '…' : url;
+    banner.innerHTML = `<span style="flex-shrink:0">&#x1F517;</span><span><strong>URL-Modus</strong><br>${shortUrl}</span>`;
+  }
+
+  /**
    * Exit selection mode, return to full page view
    */
   clearSelectionMode() {
