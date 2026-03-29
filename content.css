@@ -1,0 +1,1219 @@
+/**
+ * DIAMOND – Prism of Light
+ * Content Styles
+ */
+
+/* ═══════════════════════════════════════════
+   Body shift for sidebar
+   ═══════════════════════════════════════════ */
+.diamond-body-shifted {
+  margin-right: 360px !important;
+  transition: margin-right 0.35s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+/* ═══════════════════════════════════════════
+   Sidebar Panel
+   ═══════════════════════════════════════════ */
+#diamond-sidebar {
+  position: fixed;
+  top: 0;
+  right: -370px;
+  width: 360px;
+  height: 100vh;
+  z-index: 2147483647;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #e5e5ea;
+  background: #1c1c1e;
+  box-shadow: -4px 0 24px rgba(0, 0, 0, 0.5);
+  transition: right 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+  border-left: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+#diamond-sidebar.diamond-sidebar-open {
+  right: 0;
+}
+
+.diamond-sidebar-inner {
+  height: 100vh;
+  overflow-y: auto;
+  padding: 0 0 24px 0;
+  scrollbar-width: thin;
+  scrollbar-color: #3a3a3c #1c1c1e;
+}
+
+.diamond-sidebar-inner::-webkit-scrollbar {
+  width: 6px;
+}
+
+.diamond-sidebar-inner::-webkit-scrollbar-track {
+  background: #1c1c1e;
+}
+
+.diamond-sidebar-inner::-webkit-scrollbar-thumb {
+  background: #3a3a3c;
+  border-radius: 3px;
+}
+
+/* ═══════════════════════════════════════════
+   Essenz Box
+   ═══════════════════════════════════════════ */
+.diamond-essenz-section {
+  margin: 12px 16px;
+  padding: 14px 16px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.02));
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  position: relative;
+  overflow: hidden;
+}
+
+.diamond-essenz-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #FF3B30, #FF9500, #FFB800, #34C759, #007AFF, #AF52DE);
+  opacity: 0.6;
+}
+
+.diamond-essenz-visible::before {
+  opacity: 1;
+  animation: diamond-essenz-shimmer 3s ease-in-out infinite;
+}
+
+@keyframes diamond-essenz-shimmer {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+.diamond-essenz-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.diamond-essenz-icon {
+  font-size: 16px;
+  background: linear-gradient(135deg, #FFB800, #FF9500);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.diamond-essenz-title {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: #FFB800;
+}
+
+.diamond-essenz-subtitle {
+  font-size: 10px;
+  color: #636366;
+  font-style: italic;
+}
+
+.diamond-essenz-text {
+  font-size: 13px;
+  line-height: 1.6;
+  color: #e5e5ea;
+  font-style: italic;
+  padding-left: 10px;
+  border-left: 2px solid #FFB800;
+}
+
+.diamond-essenz-empty .diamond-essenz-text {
+  color: #48484a;
+  font-style: normal;
+  font-size: 12px;
+}
+
+/* ═══════════════════════════════════════════
+   GEFRIERPUNKT Override: Frost/Ice Theme
+   ═══════════════════════════════════════════ */
+.diamond-gefrierpunkt {
+  background: linear-gradient(135deg, rgba(120, 200, 255, 0.06), rgba(180, 220, 255, 0.02));
+  border-color: rgba(140, 200, 255, 0.15);
+}
+
+.diamond-gefrierpunkt::before {
+  background: linear-gradient(90deg, #78C8FF, #A0D8FF, #E0F0FF, #A0D8FF, #78C8FF);
+  opacity: 0.7;
+}
+
+.diamond-gefrierpunkt .diamond-essenz-icon {
+  background: linear-gradient(135deg, #A0D8FF, #78C8FF);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-size: 15px;
+}
+
+.diamond-gefrierpunkt .diamond-essenz-title {
+  color: #A0D8FF;
+  letter-spacing: 2.5px;
+}
+
+.diamond-gefrierpunkt .diamond-essenz-text {
+  border-left-color: rgba(120, 200, 255, 0.5);
+  color: #e8eef4;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 13.5px;
+  letter-spacing: 0.3px;
+}
+
+@keyframes diamond-frost-shimmer {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+.diamond-gefrierpunkt.diamond-essenz-visible::before {
+  animation: diamond-frost-shimmer 4s ease-in-out infinite;
+}
+
+/* Category tag */
+.diamond-category-tag {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0 12px 6px 12px;
+  padding: 3px 10px;
+  background: rgba(120, 200, 255, 0.08);
+  border: 1px solid rgba(120, 200, 255, 0.15);
+  border-radius: 12px;
+  font-size: 11px;
+  color: #A0D8FF;
+  width: fit-content;
+}
+.diamond-cat-icon {
+  font-size: 12px;
+}
+.diamond-cat-label {
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  font-size: 10px;
+}
+
+/* GFP meta chips (resource, mechanism, strategy) */
+.diamond-gfp-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin: 6px 12px 8px 12px;
+  padding: 0;
+}
+.diamond-gfp-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  padding: 2px 8px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.55);
+  font-weight: 500;
+  cursor: default;
+}
+.diamond-gfp-chip:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.75);
+}
+.diamond-gfp-strategy {
+  color: rgba(120, 200, 255, 0.5);
+  border-color: rgba(120, 200, 255, 0.1);
+}
+
+/* ═══════════════════════════════════════════
+   PROFITEUR Section
+   ═══════════════════════════════════════════ */
+.diamond-profiteur {
+  border-color: rgba(255, 185, 50, 0.2) !important;
+  margin-top: 6px !important;
+}
+.diamond-profiteur .diamond-essenz-icon {
+  font-size: 16px;
+  filter: none;
+}
+.diamond-profiteur .diamond-essenz-title {
+  color: #FFB932;
+  letter-spacing: 2px;
+}
+.diamond-profiteur-text {
+  padding: 8px 12px 4px 12px;
+  font-size: 13px;
+  line-height: 1.55;
+  color: #e0c878;
+  font-weight: 500;
+  font-style: italic;
+}
+.diamond-essenz-empty .diamond-profiteur-text {
+  color: rgba(255, 185, 50, 0.3);
+  font-style: normal;
+}
+.diamond-profiteur.diamond-essenz-visible::before {
+  background: linear-gradient(135deg, rgba(255, 185, 50, 0.1), rgba(255, 140, 0, 0.05));
+}
+.diamond-profiteur-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin: 4px 12px 8px 12px;
+  padding: 0;
+}
+.diamond-prof-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  background: rgba(255, 185, 50, 0.06);
+  border: 1px solid rgba(255, 185, 50, 0.12);
+  border-radius: 8px;
+  font-size: 10px;
+  color: rgba(255, 185, 50, 0.65);
+  font-weight: 500;
+  cursor: default;
+}
+.diamond-prof-chip:hover {
+  background: rgba(255, 185, 50, 0.12);
+  color: rgba(255, 185, 50, 0.85);
+}
+.diamond-prof-direct {
+  border-color: rgba(255, 185, 50, 0.25);
+  color: rgba(255, 185, 50, 0.8);
+}
+.diamond-prof-indirect {
+  border-color: rgba(100, 180, 255, 0.2);
+  color: rgba(100, 180, 255, 0.7);
+}
+.diamond-prof-hidden {
+  border-color: rgba(200, 100, 255, 0.2);
+  color: rgba(200, 100, 255, 0.7);
+}
+
+/* ═══════════════════════════════════════════
+   MODULE MANAGER
+   ═══════════════════════════════════════════ */
+.diamond-module-manager {
+  padding: 8px 0;
+}
+.diamond-module-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px 12px 10px;
+}
+.diamond-module-header-title {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: rgba(255,255,255,0.5);
+}
+.diamond-module-add-btn {
+  padding: 4px 12px;
+  background: rgba(120, 200, 255, 0.12);
+  border: 1px solid rgba(120, 200, 255, 0.25);
+  border-radius: 8px;
+  color: #78C8FF;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.diamond-module-add-btn:hover {
+  background: rgba(120, 200, 255, 0.2);
+}
+
+/* Module card */
+.diamond-mod-card {
+  margin: 0 8px 6px;
+  padding: 10px 12px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 10px;
+  transition: all 0.2s;
+}
+.diamond-mod-card:hover {
+  background: rgba(255,255,255,0.05);
+}
+.diamond-mod-disabled {
+  opacity: 0.45;
+}
+.diamond-mod-card-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+.diamond-mod-icon {
+  font-size: 22px;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.diamond-mod-info {
+  flex: 1;
+  min-width: 0;
+}
+.diamond-mod-name-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 5px;
+  margin-bottom: 3px;
+}
+.diamond-mod-name {
+  font-size: 13px;
+  font-weight: 700;
+  color: #fff;
+}
+.diamond-mod-badge {
+  font-size: 9px;
+  padding: 1px 6px;
+  border-radius: 6px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.diamond-mod-builtin {
+  background: rgba(120, 200, 255, 0.1);
+  color: rgba(120, 200, 255, 0.7);
+}
+.diamond-mod-custom {
+  background: rgba(255, 185, 50, 0.1);
+  color: rgba(255, 185, 50, 0.7);
+}
+.diamond-mod-version {
+  font-size: 9px;
+  color: rgba(255,255,255,0.25);
+  font-weight: 500;
+}
+.diamond-mod-rules {
+  font-size: 9px;
+  color: rgba(255,255,255,0.3);
+}
+.diamond-mod-desc {
+  font-size: 11px;
+  color: rgba(255,255,255,0.45);
+  line-height: 1.4;
+  display: block;
+}
+.diamond-mod-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+.diamond-mod-edit-btn {
+  background: none;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 6px;
+  color: rgba(255,255,255,0.4);
+  font-size: 12px;
+  padding: 3px 7px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.diamond-mod-edit-btn:hover {
+  background: rgba(255,255,255,0.08);
+  color: rgba(255,255,255,0.7);
+}
+
+/* Toggle switch */
+.diamond-mod-toggle {
+  position: relative;
+  display: inline-block;
+  width: 34px;
+  height: 18px;
+}
+.diamond-mod-toggle input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+.diamond-mod-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(255,255,255,0.1);
+  border-radius: 18px;
+  transition: 0.3s;
+}
+.diamond-mod-slider::before {
+  position: absolute;
+  content: "";
+  height: 14px;
+  width: 14px;
+  left: 2px;
+  bottom: 2px;
+  background: rgba(255,255,255,0.5);
+  border-radius: 50%;
+  transition: 0.3s;
+}
+.diamond-mod-checkbox:checked + .diamond-mod-slider {
+  background: rgba(120, 200, 255, 0.3);
+}
+.diamond-mod-checkbox:checked + .diamond-mod-slider::before {
+  transform: translateX(16px);
+  background: #78C8FF;
+}
+
+/* Details inside card */
+.diamond-mod-details {
+  margin-top: 6px;
+  padding-top: 6px;
+  border-top: 1px solid rgba(255,255,255,0.04);
+}
+.diamond-mod-detail-item {
+  font-size: 10px;
+  color: rgba(255,255,255,0.3);
+  line-height: 1.6;
+  padding-left: 4px;
+}
+
+/* ═══════════════════════════════════════════
+   MODULE EDITOR
+   ═══════════════════════════════════════════ */
+.diamond-module-editor {
+  padding: 0 8px 12px;
+}
+.diamond-editor-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 4px;
+}
+.diamond-editor-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: #fff;
+}
+.diamond-editor-close {
+  background: none;
+  border: none;
+  color: rgba(255,255,255,0.4);
+  font-size: 18px;
+  cursor: pointer;
+  padding: 0 6px;
+}
+.diamond-editor-body {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.diamond-editor-label {
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: rgba(255,255,255,0.4);
+  margin-top: 6px;
+}
+.diamond-editor-input {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 6px;
+  padding: 6px 10px;
+  color: #fff;
+  font-size: 12px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.diamond-editor-input:focus {
+  border-color: rgba(120, 200, 255, 0.4);
+}
+.diamond-editor-icon-input {
+  width: 50px;
+  text-align: center;
+  font-size: 18px;
+}
+.diamond-editor-color {
+  width: 40px;
+  height: 28px;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 6px;
+  background: none;
+  cursor: pointer;
+}
+.diamond-editor-hint {
+  font-size: 9px;
+  color: rgba(255,255,255,0.25);
+  margin: 0;
+}
+.diamond-editor-hint code {
+  background: rgba(255,255,255,0.06);
+  padding: 1px 4px;
+  border-radius: 3px;
+  font-size: 9px;
+  color: rgba(120, 200, 255, 0.6);
+}
+
+/* Rule row */
+.diamond-rule-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr auto auto;
+  gap: 4px;
+  margin-bottom: 4px;
+  align-items: center;
+}
+.diamond-rule-pattern,
+.diamond-rule-label {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 5px;
+  padding: 5px 7px;
+  color: #fff;
+  font-size: 11px;
+  outline: none;
+}
+.diamond-rule-pattern:focus,
+.diamond-rule-label:focus {
+  border-color: rgba(120, 200, 255, 0.4);
+}
+.diamond-rule-category {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 5px;
+  padding: 4px 3px;
+  color: rgba(255,255,255,0.7);
+  font-size: 10px;
+  outline: none;
+}
+.diamond-rule-remove {
+  background: none;
+  border: 1px solid rgba(255,100,100,0.2);
+  border-radius: 5px;
+  color: rgba(255,100,100,0.5);
+  font-size: 14px;
+  padding: 2px 6px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.diamond-rule-remove:hover {
+  background: rgba(255,100,100,0.1);
+  color: #FF6464;
+}
+.diamond-editor-add-rule {
+  background: rgba(255,255,255,0.04);
+  border: 1px dashed rgba(255,255,255,0.1);
+  border-radius: 6px;
+  color: rgba(255,255,255,0.35);
+  font-size: 11px;
+  padding: 5px;
+  margin-top: 4px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.diamond-editor-add-rule:hover {
+  background: rgba(255,255,255,0.06);
+  color: rgba(255,255,255,0.6);
+}
+.diamond-editor-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+}
+.diamond-editor-save {
+  flex: 1;
+  padding: 8px;
+  background: rgba(52, 199, 89, 0.15);
+  border: 1px solid rgba(52, 199, 89, 0.3);
+  border-radius: 8px;
+  color: #34C759;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.diamond-editor-save:hover {
+  background: rgba(52, 199, 89, 0.25);
+}
+.diamond-editor-delete {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 14px;
+  background: rgba(255, 59, 48, 0.1);
+  border: 1px solid rgba(255, 59, 48, 0.25);
+  border-radius: 8px;
+  color: #FF3B30;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.diamond-editor-delete:hover {
+  background: rgba(255, 59, 48, 0.2);
+}
+
+/* Custom results display */
+.diamond-custom-results-header {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: rgba(255,255,255,0.35);
+  padding: 12px 12px 6px;
+}
+.diamond-custom-result-card {
+  margin: 4px 8px;
+  padding: 8px 10px;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.05);
+  border-left: 3px solid #8E8E93;
+  border-radius: 8px;
+}
+.diamond-custom-result-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: rgba(255,255,255,0.7);
+  margin-bottom: 4px;
+}
+.diamond-custom-result-text {
+  font-size: 12px;
+  color: rgba(255,255,255,0.55);
+  font-style: italic;
+  line-height: 1.5;
+}
+.diamond-custom-result-matches {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-top: 6px;
+}
+.diamond-custom-match-chip {
+  font-size: 9px;
+  padding: 2px 6px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 6px;
+  color: rgba(255,255,255,0.45);
+}
+
+/* ═══════════════════════════════════════════
+   Header
+   ═══════════════════════════════════════════ */
+.diamond-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px 8px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.diamond-logo-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.diamond-icon-svg {
+  flex-shrink: 0;
+}
+
+.diamond-title {
+  display: flex;
+  flex-direction: column;
+}
+
+.diamond-name {
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  background: linear-gradient(135deg, #FF3B30, #FF9500, #FFB800, #34C759, #007AFF, #AF52DE);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.diamond-subtitle {
+  font-size: 11px;
+  color: #8e8e93;
+  letter-spacing: 1px;
+  margin-top: -2px;
+}
+
+.diamond-close-btn {
+  background: none;
+  border: none;
+  color: #8e8e93;
+  font-size: 24px;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 6px;
+  transition: all 0.2s;
+  line-height: 1;
+}
+
+.diamond-close-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+}
+
+/* ═══════════════════════════════════════════
+   Tagline
+   ═══════════════════════════════════════════ */
+.diamond-tagline {
+  text-align: center;
+  font-size: 11px;
+  color: #636366;
+  font-style: italic;
+  padding: 8px 20px 12px;
+  letter-spacing: 0.5px;
+}
+
+/* ═══════════════════════════════════════════
+   Score Section
+   ═══════════════════════════════════════════ */
+.diamond-score-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 12px 20px 16px;
+}
+
+.diamond-score-ring {
+  position: relative;
+}
+
+.diamond-score-ring svg {
+  filter: drop-shadow(0 0 8px rgba(255, 149, 0, 0.2));
+}
+
+.diamond-score-label {
+  margin-top: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.diamond-score-clean { color: #34C759; }
+.diamond-score-low { color: #FFB800; }
+.diamond-score-medium { color: #FF9500; }
+.diamond-score-high { color: #FF3B30; }
+
+/* ═══════════════════════════════════════════
+   Tabs
+   ═══════════════════════════════════════════ */
+.diamond-tabs {
+  display: flex;
+  gap: 2px;
+  padding: 0 20px;
+  margin-bottom: 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.diamond-tab-btn {
+  flex: 1;
+  background: none;
+  border: none;
+  color: #8e8e93;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 10px 0;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s;
+  font-family: inherit;
+}
+
+.diamond-tab-btn:hover {
+  color: #e5e5ea;
+}
+
+.diamond-tab-btn.active {
+  color: #ffffff;
+  border-bottom-color: #FF9500;
+}
+
+.diamond-tab-content {
+  padding: 0 20px;
+}
+
+.diamond-tab-content.hidden {
+  display: none;
+}
+
+/* ═══════════════════════════════════════════
+   Channel Bars
+   ═══════════════════════════════════════════ */
+.diamond-bar-row {
+  margin-bottom: 14px;
+  cursor: pointer;
+  transition: transform 0.15s;
+}
+
+.diamond-bar-row:hover {
+  transform: translateX(2px);
+}
+
+.diamond-bar-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.diamond-bar-icon {
+  font-size: 12px;
+  width: 18px;
+  text-align: center;
+}
+
+.diamond-bar-name {
+  flex: 1;
+  font-size: 12px;
+  color: #c7c7cc;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.diamond-bar-count {
+  font-size: 13px;
+  font-weight: 700;
+  color: #ffffff;
+  min-width: 24px;
+  text-align: right;
+}
+
+.diamond-bar-track {
+  height: 6px;
+  background: #2c2c2e;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.diamond-bar-fill {
+  height: 100%;
+  border-radius: 3px;
+  min-width: 2px;
+}
+
+/* ═══════════════════════════════════════════
+   Details
+   ═══════════════════════════════════════════ */
+.diamond-details-section {
+  margin-bottom: 16px;
+}
+
+.diamond-details-heading {
+  font-size: 13px;
+  font-weight: 700;
+  margin: 0 0 8px 0;
+  padding: 0;
+  color: #e5e5ea;
+}
+
+.diamond-detail-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 4px 0;
+  font-size: 12px;
+  color: #c7c7cc;
+}
+
+.diamond-detail-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin-top: 4px;
+}
+
+.diamond-detail-text {
+  flex: 1;
+  word-break: break-word;
+}
+
+.diamond-detail-count {
+  color: #8e8e93;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+/* ═══════════════════════════════════════════
+   No Results
+   ═══════════════════════════════════════════ */
+.diamond-no-results {
+  text-align: center;
+  padding: 32px 0;
+  color: #636366;
+}
+
+.diamond-clean-icon {
+  font-size: 40px;
+  margin-bottom: 12px;
+  opacity: 0.4;
+  background: linear-gradient(135deg, #34C759, #007AFF);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.diamond-subtext {
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+/* ═══════════════════════════════════════════
+   About
+   ═══════════════════════════════════════════ */
+.diamond-about {
+  padding: 4px 0;
+}
+
+.diamond-about-text {
+  font-size: 13px;
+  color: #c7c7cc;
+  line-height: 1.6;
+  margin: 0 0 16px 0;
+}
+
+.diamond-about-footer {
+  font-size: 11px;
+  color: #636366;
+  text-align: center;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  padding-top: 16px;
+}
+
+.diamond-about-quote {
+  font-style: italic;
+  text-align: center;
+  font-size: 12px;
+  color: #8e8e93;
+  line-height: 1.6;
+  padding: 12px 16px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 8px;
+  border-left: 3px solid #FF9500;
+  margin: 0;
+}
+
+.diamond-legend {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.diamond-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 12px;
+}
+
+.diamond-legend-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* ═══════════════════════════════════════════
+   Inline Highlights
+   ═══════════════════════════════════════════ */
+.diamond-highlight {
+  border-radius: 2px;
+  padding: 1px 0;
+  transition: background-color 0.2s, box-shadow 0.2s;
+}
+
+.diamond-highlight:hover {
+  box-shadow: 0 0 0 2px currentColor;
+}
+
+/* Channel-specific highlight hover colors */
+.diamond-channel-infrared:hover { box-shadow: 0 0 8px rgba(255, 59, 48, 0.4); }
+.diamond-channel-orange:hover { box-shadow: 0 0 8px rgba(255, 149, 0, 0.4); }
+.diamond-channel-yellow:hover { box-shadow: 0 0 8px rgba(255, 184, 0, 0.4); }
+.diamond-channel-green:hover { box-shadow: 0 0 8px rgba(52, 199, 89, 0.4); }
+.diamond-channel-blue:hover { box-shadow: 0 0 8px rgba(0, 122, 255, 0.4); }
+.diamond-channel-ultraviolet:hover { box-shadow: 0 0 8px rgba(175, 82, 222, 0.4); }
+
+/* Brillant-Schliff indicator */
+.diamond-brillant-applied {
+  position: relative;
+}
+
+.diamond-brillant-applied::after {
+  content: '✦';
+  position: absolute;
+  top: -2px;
+  right: -10px;
+  font-size: 8px;
+  color: #FFB800;
+  opacity: 0.5;
+}
+
+/* ═══════════════════════════════════════════
+   Tooltip
+   ═══════════════════════════════════════════ */
+.diamond-tooltip {
+  position: absolute;
+  z-index: 2147483647;
+  background: #2c2c2e;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 10px;
+  padding: 10px 14px;
+  max-width: 280px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity 0.2s, transform 0.2s;
+  pointer-events: none;
+}
+
+.diamond-tooltip-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.diamond-tooltip-header {
+  font-size: 12px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.diamond-tooltip-body {
+  font-size: 11px;
+  color: #8e8e93;
+  line-height: 1.4;
+}
+
+/* ═══════════════════════════════════════════
+   Animation
+   ═══════════════════════════════════════════ */
+@keyframes diamond-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+@keyframes diamond-slide-in {
+  from { transform: translateX(20px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+.diamond-bar-row {
+  animation: diamond-slide-in 0.4s ease-out backwards;
+}
+
+.diamond-bar-row:nth-child(1) { animation-delay: 0.05s; }
+.diamond-bar-row:nth-child(2) { animation-delay: 0.1s; }
+.diamond-bar-row:nth-child(3) { animation-delay: 0.15s; }
+.diamond-bar-row:nth-child(4) { animation-delay: 0.2s; }
+.diamond-bar-row:nth-child(5) { animation-delay: 0.25s; }
+.diamond-bar-row:nth-child(6) { animation-delay: 0.3s; }
+
+/* ═══════════════════════════════════════════
+   Selection FAB (Floating Action Button)
+   ═══════════════════════════════════════════ */
+#diamond-selection-fab {
+  position: absolute;
+  z-index: 2147483647;
+  display: none;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 14px;
+  background: linear-gradient(135deg, #2c2c2e, #3a3a3c);
+  border: 1px solid rgba(255, 149, 0, 0.4);
+  border-radius: 20px;
+  color: #FFB800;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5), 0 0 12px rgba(255, 149, 0, 0.15);
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  pointer-events: auto;
+  user-select: none;
+}
+
+#diamond-selection-fab:hover {
+  background: linear-gradient(135deg, #3a3a3c, #48484a);
+  border-color: rgba(255, 149, 0, 0.7);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.6), 0 0 20px rgba(255, 149, 0, 0.25);
+  transform: translateY(-1px);
+}
+
+#diamond-selection-fab:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
+}
+
+#diamond-selection-fab .diamond-fab-icon {
+  font-size: 14px;
+}
+
+/* ═══════════════════════════════════════════
+   Selection Banner (in Sidebar)
+   ═══════════════════════════════════════════ */
+.diamond-sel-banner {
+  margin: 0 16px 8px;
+  padding: 12px 14px;
+  background: linear-gradient(135deg, rgba(255, 184, 0, 0.08), rgba(255, 149, 0, 0.04));
+  border: 1px solid rgba(255, 184, 0, 0.2);
+  border-radius: 10px;
+  position: relative;
+}
+
+.diamond-sel-banner-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.diamond-sel-banner-icon {
+  font-size: 14px;
+  color: #FFB800;
+}
+
+.diamond-sel-banner-title {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: #FFB800;
+  flex: 1;
+}
+
+.diamond-sel-close {
+  background: none;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #8e8e93;
+  font-size: 11px;
+  padding: 3px 10px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.2s;
+}
+
+.diamond-sel-close:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: #e5e5ea;
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.diamond-sel-banner-text {
+  font-size: 12px;
+  color: #c7c7cc;
+  line-height: 1.5;
+  font-style: italic;
+  padding-left: 10px;
+  border-left: 2px solid rgba(255, 184, 0, 0.3);
+  word-break: break-word;
+}

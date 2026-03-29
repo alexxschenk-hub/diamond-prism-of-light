@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      width: 320px;
+      min-height: 200px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      background: #1c1c1e;
+      color: #e5e5ea;
+      overflow-x: hidden;
+    }
+
+    /* Header */
+    .header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px 18px 10px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .header svg {
+      flex-shrink: 0;
+    }
+
+    .title-group {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .title {
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 2.5px;
+      background: linear-gradient(135deg, #FF3B30, #FF9500, #FFB800, #34C759, #007AFF, #AF52DE);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .subtitle {
+      font-size: 10px;
+      color: #636366;
+      letter-spacing: 1px;
+    }
+
+    /* Main Toggle */
+    .toggle-section {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 18px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .toggle-label {
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .toggle-switch {
+      position: relative;
+      width: 48px;
+      height: 28px;
+      cursor: pointer;
+    }
+
+    .toggle-switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .toggle-slider {
+      position: absolute;
+      inset: 0;
+      background: #3a3a3c;
+      border-radius: 14px;
+      transition: background 0.3s;
+    }
+
+    .toggle-slider::before {
+      content: '';
+      position: absolute;
+      width: 22px;
+      height: 22px;
+      left: 3px;
+      bottom: 3px;
+      background: white;
+      border-radius: 50%;
+      transition: transform 0.3s;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+    }
+
+    .toggle-switch input:checked + .toggle-slider {
+      background: linear-gradient(135deg, #FF9500, #FF3B30);
+    }
+
+    .toggle-switch input:checked + .toggle-slider::before {
+      transform: translateX(20px);
+    }
+
+    /* Mode Selector */
+    .section-title {
+      font-size: 11px;
+      font-weight: 600;
+      color: #8e8e93;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      padding: 12px 18px 6px;
+    }
+
+    .mode-buttons {
+      display: flex;
+      gap: 6px;
+      padding: 4px 18px 12px;
+    }
+
+    .mode-btn {
+      flex: 1;
+      background: #2c2c2e;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 8px;
+      padding: 8px 4px;
+      color: #c7c7cc;
+      font-size: 10px;
+      font-weight: 600;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.2s;
+      font-family: inherit;
+      line-height: 1.3;
+    }
+
+    .mode-btn:hover {
+      background: #3a3a3c;
+      border-color: rgba(255,255,255,0.15);
+    }
+
+    .mode-btn.active {
+      background: rgba(255, 149, 0, 0.15);
+      border-color: #FF9500;
+      color: #FF9500;
+    }
+
+    .mode-icon {
+      display: block;
+      font-size: 16px;
+      margin-bottom: 3px;
+    }
+
+    /* Channel Toggles */
+    .channels {
+      padding: 0 18px 12px;
+    }
+
+    .channel-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 7px 0;
+    }
+
+    .channel-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .channel-name {
+      flex: 1;
+      font-size: 12px;
+      color: #c7c7cc;
+    }
+
+    .channel-toggle {
+      position: relative;
+      width: 36px;
+      height: 20px;
+      cursor: pointer;
+    }
+
+    .channel-toggle input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .channel-slider {
+      position: absolute;
+      inset: 0;
+      background: #3a3a3c;
+      border-radius: 10px;
+      transition: background 0.3s;
+    }
+
+    .channel-slider::before {
+      content: '';
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      left: 2px;
+      bottom: 2px;
+      background: white;
+      border-radius: 50%;
+      transition: transform 0.3s;
+    }
+
+    .channel-toggle input:checked + .channel-slider {
+      background: var(--channel-color);
+    }
+
+    .channel-toggle input:checked + .channel-slider::before {
+      transform: translateX(16px);
+    }
+
+    /* Score mini */
+    .mini-score {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 10px 18px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      font-size: 12px;
+      color: #8e8e93;
+    }
+
+    .mini-score-value {
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    .score-low { color: #34C759; }
+    .score-medium { color: #FFB800; }
+    .score-high { color: #FF9500; }
+    .score-critical { color: #FF3B30; }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      padding: 8px 18px 12px;
+      font-size: 10px;
+      color: #48484a;
+      font-style: italic;
+    }
+
+    /* Disabled state */
+    .disabled {
+      opacity: 0.4;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <div class="header">
+    <svg viewBox="0 0 36 36" width="28" height="28">
+      <defs>
+        <linearGradient id="pg" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" style="stop-color:#FF3B30"/>
+          <stop offset="20%" style="stop-color:#FF9500"/>
+          <stop offset="40%" style="stop-color:#FFB800"/>
+          <stop offset="60%" style="stop-color:#34C759"/>
+          <stop offset="80%" style="stop-color:#007AFF"/>
+          <stop offset="100%" style="stop-color:#AF52DE"/>
+        </linearGradient>
+      </defs>
+      <polygon points="18,2 34,14 28,34 8,34 2,14" fill="none" stroke="url(#pg)" stroke-width="2.5"/>
+      <polygon points="18,8 28,16 24,30 12,30 8,16" fill="none" stroke="url(#pg)" stroke-width="1" opacity="0.4"/>
+    </svg>
+    <div class="title-group">
+      <span class="title">DIAMOND</span>
+      <span class="subtitle">Prism of Light</span>
+    </div>
+  </div>
+
+  <!-- Main Toggle -->
+  <div class="toggle-section">
+    <span class="toggle-label">Analyse aktiv</span>
+    <label class="toggle-switch">
+      <input type="checkbox" id="mainToggle">
+      <span class="toggle-slider"></span>
+    </label>
+  </div>
+
+  <!-- Modes -->
+  <div id="modesSection">
+    <div class="section-title">Diamond-Schliff</div>
+    <div class="mode-buttons">
+      <button class="mode-btn active" data-mode="rohdiamant">
+        <span class="mode-icon">&#9670;</span>
+        Rohdiamant
+      </button>
+      <button class="mode-btn" data-mode="brillant">
+        <span class="mode-icon">&#10024;</span>
+        Brillant
+      </button>
+      <button class="mode-btn" data-mode="feuer">
+        <span class="mode-icon">&#128293;</span>
+        Feuer
+      </button>
+    </div>
+  </div>
+
+  <!-- Channel Filters -->
+  <div id="channelsSection">
+    <div class="section-title">Farbkan&auml;le</div>
+    <div class="channels">
+      <div class="channel-row">
+        <span class="channel-dot" style="background:#FF3B30"></span>
+        <span class="channel-name">Infrarot &ndash; Angst</span>
+        <label class="channel-toggle" style="--channel-color:#FF3B30">
+          <input type="checkbox" data-channel="infrared" checked>
+          <span class="channel-slider"></span>
+        </label>
+      </div>
+      <div class="channel-row">
+        <span class="channel-dot" style="background:#FF9500"></span>
+        <span class="channel-name">Orange &ndash; Dringlichkeit</span>
+        <label class="channel-toggle" style="--channel-color:#FF9500">
+          <input type="checkbox" data-channel="orange" checked>
+          <span class="channel-slider"></span>
+        </label>
+      </div>
+      <div class="channel-row">
+        <span class="channel-dot" style="background:#FFB800"></span>
+        <span class="channel-name">Gelb &ndash; Profit</span>
+        <label class="channel-toggle" style="--channel-color:#FFB800">
+          <input type="checkbox" data-channel="yellow" checked>
+          <span class="channel-slider"></span>
+        </label>
+      </div>
+      <div class="channel-row">
+        <span class="channel-dot" style="background:#34C759"></span>
+        <span class="channel-name">Gr&uuml;n &ndash; Wir vs. Die</span>
+        <label class="channel-toggle" style="--channel-color:#34C759">
+          <input type="checkbox" data-channel="green" checked>
+          <span class="channel-slider"></span>
+        </label>
+      </div>
+      <div class="channel-row">
+        <span class="channel-dot" style="background:#007AFF"></span>
+        <span class="channel-name">Blau &ndash; Autorit&auml;t</span>
+        <label class="channel-toggle" style="--channel-color:#007AFF">
+          <input type="checkbox" data-channel="blue" checked>
+          <span class="channel-slider"></span>
+        </label>
+      </div>
+      <div class="channel-row">
+        <span class="channel-dot" style="background:#AF52DE"></span>
+        <span class="channel-name">Ultraviolett &ndash; Moral</span>
+        <label class="channel-toggle" style="--channel-color:#AF52DE">
+          <input type="checkbox" data-channel="ultraviolet" checked>
+          <span class="channel-slider"></span>
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mini Score -->
+  <div class="mini-score" id="miniScore">
+    <span>Manipulation Score:</span>
+    <span class="mini-score-value" id="scoreDisplay">--</span>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    Don't just see the news. See the spectrum.
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
